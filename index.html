@@ -33,11 +33,17 @@
         </div>
         <div class="input-group">
             <label for="bgColor">Background Color:</label>
-            <input type="color" id="bgColor" value="#000000">
+            <input type="color" id="bgColor" value="#000000" data-transparent="true">
         </div>
         <div class="input-group">
             <label for="fontFamily">Font Family:</label>
-            <input type="text" id="fontFamily" value="Arial, sans-serif">
+            <select id="fontFamily">
+                <option value="Arial, sans-serif">Arial</option>
+                <option value="'Times New Roman', Times, serif">Times New Roman</option>
+                <option value="'Courier New', Courier, monospace">Courier New</option>
+                <option value="'Lucida Console', Monaco, monospace">Lucida Console</option>
+                <!-- Add more font families as needed -->
+            </select>
         </div>
         <div class="input-group">
             <label for="bigTimer">Big Timer:</label>
@@ -52,3 +58,4 @@
     <script src="script.js"></script>
 </body>
 </html>
+
