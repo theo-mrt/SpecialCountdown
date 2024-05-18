@@ -1,3 +1,5 @@
+/* style.css */
+
 body {
     font-family: Arial, sans-serif;
     background-color: #1c1c1c;
@@ -65,4 +67,20 @@ textarea {
     border-radius: 5px;
     font-size: 14px;
     box-sizing: border-box;
+}
+
+/* Big Timer Style */
+.big-timer {
+    font-size: 80px !important;
+    font-family: 'Arial', sans-serif !important;
+    color: white !important;
+    background-color: #4285f4 !important;
+    padding: 20px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.big-timer span {
+    margin: 0 10px;
 }

@@ -12,6 +12,9 @@ function generateTimer() {
     const timezone = document.getElementById('timezone').value;
     const color = document.getElementById('color').value;
     const fontSize = parseInt(document.getElementById('fontSize').value, 10);
+    const bgColor = document.getElementById('bgColor').value;
+    const fontFamily = document.getElementById('fontFamily').value;
+    const bigTimer = document.getElementById('bigTimer').checked;
 
     if (isNaN(endTime.getTime())) {
         alert('Please choose a valid date and time.');
@@ -35,6 +38,8 @@ function generateTimer() {
         if (distance < 0) {
             clearInterval(interval);
             document.getElementById('timerPreview').innerHTML = "Time's up!";
+            document.getElementById('timerPreview').style.backgroundColor = bgColor;
+            document.getElementById('timerPreview').style.fontFamily = fontFamily;
             return;
         }
 
@@ -43,19 +48,38 @@ function generateTimer() {
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        document.getElementById('timerPreview').innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+        document.getElementById('timerPreview').innerHTML = `
+            <span>${days}d</span>
+            <span>${hours}h</span>
+            <span>${minutes}m</span>
+            <span>${seconds}s</span>
+        `;
         document.getElementById('timerPreview').style.color = color;
         document.getElementById('timerPreview').style.fontSize = `${fontSize}px`;
+        document.getElementById('timerPreview').style.backgroundColor = bgColor;
+        document.getElementById('timerPreview').style.fontFamily = fontFamily;
+        if (bigTimer) {
+            document.getElementById('timerPreview').classList.add('big-timer');
+        } else {
+            document.getElementById('timerPreview').classList.remove('big-timer');
+        }
     }, 1000);
 
-    generateEmbedCode(endTime, timezone, color, fontSize);
+    generateEmbedCode(endTime, timezone, color, fontSize, bgColor, fontFamily, bigTimer);
 }
 
-function generateEmbedCode(endTime, timezone, color, fontSize) {
+function generateEmbedCode(endTime, timezone, color, fontSize, bgColor, fontFamily, bigTimer) {
     const formattedDate = endTime.toISOString();
+    const bigTimerClass = bigTimer ? 'big-timer' : '';
     const embedCode = `
 <script src="https://myspecialtimer.com/countdown/countdown.js"></script>
-<a href="https://myspecialtimer.com/" class="countdown-timer" data-timezone="${timezone}" data-date="${formattedDate}" data-color="${color}" data-font-size="${fontSize}">Countdown Timer</a>
+<a href="https://myspecialtimer.com/" class="countdown-timer ${bigTimerClass}"
+   data-timezone="${timezone}"
+   data-date="${formattedDate}"
+   data-color="${color}"
+   data-font-size="${fontSize}"
+   data-bg-color="${bgColor}"
+   data-font-family="${fontFamily}">Countdown Timer</a>
     `;
 
     document.getElementById('embedCode').value = embedCode;
