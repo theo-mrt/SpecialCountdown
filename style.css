@@ -8,16 +8,19 @@ body, html {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: auto; /* Ensure the page can scroll if needed */
+    box-sizing: border-box;
 }
 
 .container {
     width: 80%;
-    max-width: 900px;
+    max-width: 600px;
     text-align: center;
     padding: 40px;
     background-color: #1A1A1A;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    min-height: 100vh
 }
 
 h1 {
