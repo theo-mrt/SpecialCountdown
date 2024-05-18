@@ -1,17 +1,30 @@
-document.getElementById('generateBtn').addEventListener('click', generateTimer);
-document.getElementById('copyBtn').addEventListener('click', copyEmbedCode);
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('generateBtn').addEventListener('click', generateTimer);
+    document.getElementById('copyBtn').addEventListener('click', copyEmbedCode);
+});
 
 let interval;
 
 function generateTimer() {
-    clearInterval(interval); // Clear any existing intervals
+    clearInterval(interval);
 
     const endTime = new Date(document.getElementById('endTime').value);
+    const timezone = document.getElementById('timezone').value;
     const color = document.getElementById('color').value;
-    const fontSize = document.getElementById('fontSize').value;
+    const fontSize = parseInt(document.getElementById('fontSize').value, 10);
+
+    if (isNaN(endTime.getTime())) {
+        alert('Please choose a valid date and time.');
+        return;
+    }
 
     if (endTime <= new Date()) {
         alert('Please choose a future date and time.');
+        return;
+    }
+
+    if (isNaN(fontSize) || fontSize < 10 || fontSize > 100) {
+        alert('Please choose a font size between 10 and 100.');
         return;
     }
 
@@ -35,21 +48,21 @@ function generateTimer() {
         document.getElementById('timerPreview').style.fontSize = `${fontSize}px`;
     }, 1000);
 
-    generateEmbedCode(endTime, color, fontSize);
+    generateEmbedCode(endTime, timezone, color, fontSize);
 }
 
-function generateEmbedCode(endTime, color, fontSize) {
-    const formattedDate = endTime.toISOString(); // Format the date as needed
+function generateEmbedCode(endTime, timezone, color, fontSize) {
+    const formattedDate = endTime.toISOString();
     const embedCode = `
 <script src="https://myspecialtimer.com/countdown/countdown.js"></script>
-<a href="https://myspecialtimer.com/" class="countdown-timer" data-timezone="America/New_York" data-date="${formattedDate}">Countdown Timer</a>
+<a href="https://myspecialtimer.com/" class="countdown-timer" data-timezone="${timezone}" data-date="${formattedDate}" data-color="${color}" data-font-size="${fontSize}">Countdown Timer</a>
     `;
-    
-    document.getElementById('embedCode').value = embedCode; // Make sure this targets a textarea element
+
+    document.getElementById('embedCode').value = embedCode;
 }
 
 function copyEmbedCode() {
-    const embedCode = document.getElementById('embedCode'); // Make sure this targets a textarea element
+    const embedCode = document.getElementById('embedCode');
     embedCode.select();
     navigator.clipboard.writeText(embedCode.value)
         .then(() => alert('Embed code copied to clipboard!'))
