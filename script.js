@@ -48,15 +48,16 @@ function generateTimer() {
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-        document.getElementById('timerPreview').innerHTML = `
+        const timerHtml = `
             <span>${days}d</span>
             <span>${hours}h</span>
             <span>${minutes}m</span>
             <span>${seconds}s</span>
         `;
+        document.getElementById('timerPreview').innerHTML = timerHtml;
         document.getElementById('timerPreview').style.color = color;
         document.getElementById('timerPreview').style.fontSize = `${fontSize}px`;
-        document.getElementById('timerPreview').style.backgroundColor = bgColor;
+        document.getElementById('timerPreview').style.backgroundColor = bgColor === '#000000' ? 'transparent' : bgColor;
         document.getElementById('timerPreview').style.fontFamily = fontFamily;
         if (bigTimer) {
             document.getElementById('timerPreview').classList.add('big-timer');
@@ -78,7 +79,7 @@ function generateEmbedCode(endTime, timezone, color, fontSize, bgColor, fontFami
    data-date="${formattedDate}"
    data-color="${color}"
    data-font-size="${fontSize}"
-   data-bg-color="${bgColor}"
+   data-bg-color="${bgColor === '#000000' ? 'transparent' : bgColor}"
    data-font-family="${fontFamily}">Countdown Timer</a>
     `;
 
